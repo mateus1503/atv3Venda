@@ -12,11 +12,26 @@ class Produto(models.Model):
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=200)
-    telefone = models.CharField(max_length=16)
-    cpf = models.CharField(max_length=11)
+    telefone = models.CharField(max_length=11)
 
     def __str__(self):
         return self.nome
+
+
+class ClienteFisico(Cliente):
+    cpf = models.CharField(max_length=11)
+    data_nascimento = models.DateField()
+
+    def __str__(self):
+        return f"{self.nome} (Físico)"
+
+
+class ClienteJuridico(Cliente):
+    cnpj = models.CharField(max_length=14)
+    razao_social = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.nome} (Jurídico)"
 
 
 class Venda(models.Model):

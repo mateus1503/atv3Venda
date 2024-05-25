@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends 'venda/layout.html' %}
+
+    {% block content %}
+        <main>
+            <h1>Cadastro de Cliente</h1>
+
+            <div class="container1">
+                <div class="form-container">
+                    <h2>Pessoa Jurídica</h2>
+                    <form action="{% url 'form_juridica' %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <button type="submit">Salvar</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    {% endblock content %}
+</body>
+</html>

@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+    <title>Vendas</title>
 </head>
 <body>
+    {% extends 'venda/layout.html' %}
 
-<h4>Lista de Vendas</h4>
+    {% block content %}
+        <main>
+            <h4>Lista de Vendas</h4>
 
-<!-- Menu -->
-{% comment %}<div>
-    <a th:href="@{/pessoa/list}">Lista de Venda</a>
-</div>{% endcomment %}
-
-<table class="table" border="1">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Cliente</th>
-        <th>Data e Hora</th>
-        <th>Total da Venda</th>
-        <th>Consulte aqui sua Compra👇</th>
-    </tr>
-    </thead>
-    {% for venda in vendas %}
-        <tr>
-            <td>{{ venda.id }}</td>
-            <td>{{ venda.cliente.nome }}</td>
-            <td>{{ venda.data }}</td>
-            <td>{{ venda.total_venda }}</td>
-            <td><a href="{% url 'detail_venda' venda.id %}">Consultar Venda</a></td>
-        </tr>
-    {% endfor %}
-</table>
-
+            <table class="table" border="1">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Cliente</th>
+                    <th>Data e Hora</th>
+                    <th>Total da Venda</th>
+                    <th>Consulte aqui sua Compra👇</th>
+                </tr>
+                </thead>
+                {% for venda in vendas %}
+                    <tr>
+                        <td>{{ venda.id }}</td>
+                        <td>{{ venda.cliente.nome }}</td>
+                        <td>{{ venda.data | date:'d/M/Y H:m' }}</td>
+                        <td>{{ venda.total_venda }}</td>
+                        <td><a href="{% url 'detail_venda' venda.id %}">Consultar Venda</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </main>
+    {% endblock content %}
 </body>
 </html>
