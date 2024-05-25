@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
 
     <title>Vendas</title>
+    {% extends 'venda/layout.html' %}
+    {% block link %}
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'venda/css/list.css' %}">
+    {% endblock link %}
 </head>
 <body>
-    {% extends 'venda/layout.html' %}
-
     {% block content %}
         <main>
             <h4>Lista de Vendas</h4>
