@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Vendas</title>
+</head>
+<body>
+
+<main>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descrição do Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Valor Total</th>
+        </tr>
+        </thead>
+        {% for item_venda in itens_venda %}
+            <tr>
+                <td>{{ item_venda.id }}</td>
+                <td>{{ item_venda.produto.descricao }}</td>
+                <td>{{ item_venda.quantidade }}</td>
+                <td>{{ item_venda.produto.valor }}</td>
+                <td>{{ item_venda.get_total }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</main>
+</body>
+</html>
