@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/login.css' %}">
+</head>
+<body>
+{% block content %}
+    <main>
+        <h1>Login</h1>
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Entrar</button>
+
+            <input type="hidden" name="next" value="{% url 'list_venda' %}">
+        </form>
+        <p><a href="{% url 'cadastrar' %}">Adicionar Conta</a></p>
+    </main>
+{% endblock content %}
+</body>
+</html>

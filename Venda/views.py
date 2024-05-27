@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Venda, Cliente, ClienteFisico, ClienteJuridico
+from .models import Venda, Produto, ClienteFisico, ClienteJuridico
 from .forms import ClienteFisicoForm, ClienteJuridicoForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -29,6 +29,12 @@ def list_clientes(request):
     )
     context = {'clientes': clientes}
     return render(request, 'venda/list_clientes.html', context)
+
+
+def list_produtos(request):
+    produtos = Produto.objects.order_by('id')
+    context = {'produtos': produtos}
+    return render(request, 'venda/list_produtos.html', context)
 
 
 def form_fisica(request):

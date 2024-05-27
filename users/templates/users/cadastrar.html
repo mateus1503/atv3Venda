@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/cadastrar.css' %}">
+</head>
+<body>
+{% block content %}
+    <form action="{% url 'cadastrar' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+
+        <input type="hidden" name="next" value="{% url 'list_venda' %}">
+    </form>
+{% endblock content %}
+</body>
+</html>
