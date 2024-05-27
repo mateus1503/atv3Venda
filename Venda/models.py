@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum, F
+from django.contrib.auth.models import User
 
 
 class Produto(models.Model):
@@ -10,33 +10,9 @@ class Produto(models.Model):
         return self.descricao
 
 
-class Cliente(models.Model):
-    nome = models.CharField(max_length=200)
-    telefone = models.CharField(max_length=11)
-
-    def __str__(self):
-        return self.nome
-
-
-class ClienteFisico(Cliente):
-    cpf = models.CharField(max_length=11)
-    data_nascimento = models.DateField()
-
-    def __str__(self):
-        return f"{self.nome} (Físico)"
-
-
-class ClienteJuridico(Cliente):
-    cnpj = models.CharField(max_length=14)
-    razao_social = models.CharField(max_length=200)
-
-    def __str__(self):
-        return f"{self.nome} (Jurídico)"
-
-
 class Venda(models.Model):
     data = models.DateTimeField(auto_now_add=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, related_name='vendas', on_delete=models.CASCADE)
 
     def total_venda(self):
         total = 0

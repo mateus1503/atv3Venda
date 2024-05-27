@@ -26,9 +26,9 @@
                     <th>Telefone</th>
                 </tr>
                 </thead>
-                {% for cliente in clientes %}
+                {% for usuario in usuarios %}
                     <tr>
-                        <td>{{ cliente.id }}</td>
+                        <td>{{ usuarios.id }}</td>
                         <td>{{ cliente.nome }}</td>
                         {% if cliente.cnpj %}
                             <td>{{ cliente.cnpj }}</td>

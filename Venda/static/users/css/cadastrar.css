@@ -8,7 +8,7 @@ body {
   margin: 0;
 }
 
-form {
+main {
   background-color: #fff;
   padding: 30px;
   border-radius: 5px;
@@ -20,6 +20,11 @@ form {
 h1 {
   color: #333;
   margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -60,4 +65,17 @@ button[type="submit"]:hover {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+p {
+  margin-top: 15px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

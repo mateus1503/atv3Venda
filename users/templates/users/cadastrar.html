@@ -8,13 +8,19 @@
 </head>
 <body>
 {% block content %}
-    <form action="{% url 'cadastrar' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Cadastrar</button>
+    <main>
+        <h1>Cadastrar</h1>
 
-        <input type="hidden" name="next" value="{% url 'list_venda' %}">
-    </form>
+        <form action="{% url 'cadastrar' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+
+            <input type="hidden" name="next" value="{% url 'list_venda' %}">
+        </form>
+
+        <p><a href="{% url 'login' %}">Já tenho uma Conta</a></p>
+    </main>
 {% endblock content %}
 </body>
 </html>
