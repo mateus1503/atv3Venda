@@ -21,21 +21,17 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Cliente</th>
-                    <th>CPF/CNPJ</th>
-                    <th>Telefone</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Login</th>
                 </tr>
                 </thead>
                 {% for usuario in usuarios %}
                     <tr>
-                        <td>{{ usuarios.id }}</td>
-                        <td>{{ cliente.nome }}</td>
-                        {% if cliente.cnpj %}
-                            <td>{{ cliente.cnpj }}</td>
-                        {% else %}
-                            <td>{{ cliente.cpf }}</td>
-                        {% endif %}
-                        <td>{{ cliente.telefone }}</td>
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.first_name }}</td>
+                        <td>{{ usuario.last_name }}</td>
+                        <td>{{ usuario.username }}</td>
                     </tr>
                 {% endfor %}
             </table>

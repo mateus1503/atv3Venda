@@ -18,7 +18,7 @@ def cadastrar(request):
             new_user = form.save()
             authenticate_user = authenticate(username=new_user.username, password=request.POST['password1'])
             login(request, authenticate_user)
-            return HttpResponseRedirect(reverse('list_venda'))
+            return HttpResponseRedirect(reverse('index'))
 
     context = {'form': form}
     return render(request, 'users/cadastrar.html', context)
