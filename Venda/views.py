@@ -5,7 +5,6 @@ from django.http import Http404
 from django.contrib.auth.models import User
 
 
-@login_required
 def index(request):
     return render(request, 'venda/index.html')
 
