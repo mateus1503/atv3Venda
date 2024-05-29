@@ -29,6 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{% url 'list_venda' user.id %}">Lista de Vendas</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'cadastrarVenda' %}">Cadastrar Venda</a>
+                        </li>
                         {% if user.is_superuser %}
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="{% url 'list_usuarios' %}">Lista de Clientes</a>

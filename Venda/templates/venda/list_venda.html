@@ -30,7 +30,7 @@
                     <tr>
                         <td>{{ venda.id }}</td>
                         <td>{{ venda.usuario }}</td>
-                        <td>{{ venda.data | date:'d/M/Y H:m' }}</td>
+                        <td>{{ venda.data | date:'d/M/Y H:i' }}</td>
                         <td>{{ venda.total_venda }}</td>
                         <td><a href="{% url 'detail_venda' venda.id %}">Consultar Venda</a></td>
                     </tr>

@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.urls import reverse
 from .models import Venda, Produto
+from .forms import VendaForm, ItemVendaForm
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 
 
+@login_required
 def index(request):
     return render(request, 'venda/index.html')
 
@@ -39,3 +42,21 @@ def list_produtos(request):
     produtos = Produto.objects.order_by('id')
     context = {'produtos': produtos}
     return render(request, 'venda/list_produtos.html', context)
+
+
+def cadastrarVenda(request):
+    if request.method != 'POST':
+        formVenda = VendaForm()
+        formItemVenda = ItemVendaForm()
+    else:
+        formVenda = VendaForm(request.POST)
+        formItemVenda = ItemVendaForm(request.POST)
+        if formVenda.is_valid() and formItemVenda.is_valid():
+            venda = formVenda.save()
+            itemVenda = formItemVenda.save(commit=False)
+            itemVenda.venda = venda
+            itemVenda.save()
+            return HttpResponseRedirect(reverse('index'))
+
+    context = {'formVenda': formVenda, 'formItemVenda': formItemVenda}
+    return render(request, 'venda/cadastrarVenda.html', context)
