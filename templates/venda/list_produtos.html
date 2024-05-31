@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'venda/css/list.css' %}">
+{% endblock link %}
+
+{% block content %}
+    <main>
+        <h4>Lista de Produtos</h4>
+
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor Unitário</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.descricao }}</td>
+                    <td>{{ produto.valor }}</td>
+                    <td>
+                        <form action="{% url 'add_to_carrinho' produto.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Adicionar ao carrinho</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p>Total: R$ {{ total_price }}</p>
+        <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
+    </main>
+{% endblock content %}

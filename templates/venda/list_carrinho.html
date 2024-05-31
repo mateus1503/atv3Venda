@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'venda/css/list.css' %}">
+{% endblock link %}
+
+{% block content %}
+    <main>
+        <h4>Lista de Vendas</h4>
+    
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Valor Total</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in carrinho_items %}
+                <tr>
+                    <td>{{ item.descricao }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>R$ {{ item.valor }}</td>
+                    <td>R$ {{ item.total_item }}</td>
+                    <td><a href="{% url 'remove_from_carrinho' item.produto_id %}" class="btn btn-danger btn-sm">Remover</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>Total: R$ {{ total_valor }}</p>
+        <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
+    </main>
+{% endblock content %}

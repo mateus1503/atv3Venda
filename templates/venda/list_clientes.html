@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'venda/css/list.css' %}">
+{% endblock link %}
+
+{% block content %}
+    <main>
+        <h4>Lista de Clientes</h4>
+
+        <table class="container table" border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Login</th>
+            </tr>
+            </thead>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.first_name }}</td>
+                    <td>{{ usuario.last_name }}</td>
+                    <td>{{ usuario.username }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+{% endblock content %}
