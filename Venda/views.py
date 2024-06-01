@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from .models import Venda, Produto, ItemVenda
-from .forms import VendaForm, ItemVendaForm
+from .forms import ProdutoForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
+from django.http import Http404
 from django.contrib.auth.models import User
 
 
@@ -14,8 +13,11 @@ def index(request):
 
 @login_required
 def list_venda(request, usuario_id):
-    usuario = User.objects.get(id=usuario_id)
-    vendas = usuario.vendas.order_by('id')
+    if request.user.is_superuser:
+        vendas = Venda.objects.order_by('id')
+    else:
+        usuario = User.objects.get(id=usuario_id)
+        vendas = usuario.vendas.order_by('id')
     context = {'vendas': vendas}
     return render(request, 'venda/list_venda.html', context)
 
@@ -44,23 +46,41 @@ def list_produtos(request):
     return render(request, 'venda/list_produtos.html', context)
 
 
-@login_required
-def cadastrarVenda(request):
-    if request.method != 'POST':
-        formVenda = VendaForm()
-        formItemVenda = ItemVendaForm()
+@login_required(login_url=User.is_superuser)
+def add_produtos(request):
+    if request.method == 'POST':
+        form = ProdutoForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_produtos')
     else:
-        formVenda = VendaForm(request.POST)
-        formItemVenda = ItemVendaForm(request.POST)
-        if formVenda.is_valid() and formItemVenda.is_valid():
-            venda = formVenda.save()
-            itemVenda = formItemVenda.save(commit=False)
-            itemVenda.venda = venda
-            itemVenda.save()
-            return HttpResponseRedirect(reverse('index'))
+        form = ProdutoForm()
 
-    context = {'formVenda': formVenda, 'formItemVenda': formItemVenda}
-    return render(request, 'venda/cadastrarVenda.html', context)
+    context = {'form': form}
+    return render(request, 'venda/new_update_produtos.html', context)
+
+
+@login_required(login_url=User.is_superuser)
+def update_produtos(request, produto_id):
+    produto = Produto.objects.get(id=produto_id)
+
+    if request.method != 'POST':
+        form = ProdutoForm(instance=produto)
+    else:
+        form = ProdutoForm(instance=produto, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_produtos')
+
+    context = {'produto': produto, 'form': form}
+    return render(request, 'venda/new_update_produtos.html', context)
+
+
+@login_required(login_url=User.is_superuser)
+def del_produtos(request, produto_id):
+    produto = Produto.objects.get(id=produto_id)
+    produto.delete()
+    return redirect('list_produtos')
 
 
 @login_required

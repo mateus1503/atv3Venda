@@ -1,0 +1,52 @@
+form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; /* Centraliza o conteúdo do formulário */
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left; /* Mantém os labels alinhados à esquerda */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block; /* Converte o botão em inline-block */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos adicionais para o formulário, se necessário */
+.errorlist {
+    color: red;
+    list-style: none;
+    padding: 0;
+}

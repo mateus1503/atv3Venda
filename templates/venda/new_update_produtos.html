@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'venda/css/form.css' %}">
+{% endblock link %}
+
+{% block content %}
+    <h4>Produto</h4>
+        <form action="{% if produto.id %}{% url 'update_produtos' produto.id %}
+        {% else %}{% url 'add_produtos' %}{% endif %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                {% if produto.id %}Editar{% else %}Cadatrar{% endif %}
+            </button>
+        </form>
+{% endblock content %}

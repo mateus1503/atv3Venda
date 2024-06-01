@@ -7,29 +7,38 @@
 {% block content %}
     <main>
         <h4>Lista de Produtos</h4>
-
+        <div class="mb-3">
+            <a href="{% url 'add_produtos' %}" class="btn btn-outline-success">Adicionar</a>
+        </div>
         <table class="table" border="1">
             <thead>
             <tr>
                 <th>Descrição</th>
                 <th>Valor Unitário</th>
-                <th>Ações</th>
+                <th colspan="2">Ações</th>
             </tr>
             </thead>
             {% for produto in produtos %}
                 <tr>
                     <td>{{ produto.descricao }}</td>
                     <td>{{ produto.valor }}</td>
-                    <td>
-                        <form action="{% url 'add_to_carrinho' produto.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Adicionar ao carrinho</button>
-                        </form>
-                    </td>
+                    {% if user.is_superuser %}
+                        <td>
+                            <a href="{% url 'update_produtos' produto.id %}" class="btn btn-warning">Editar</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'del_produtos' produto.id %}" class="btn btn-danger">Excluir</a>
+                        </td>
+                    {% else %}
+                        <td>
+                            <form action="{% url 'add_to_carrinho' produto.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Adicionar ao carrinho</button>
+                            </form>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
-        <p>Total: R$ {{ total_price }}</p>
-        <a href="{% url 'checkout' %}" class="btn btn-success">Finalizar Compra</a>
     </main>
 {% endblock content %}
