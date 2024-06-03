@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block link %}
+    {% load static %}
+{% endblock link %}
+
+{% block content %}
+    <main class="container">
+        <h4>Lista de Produtos</h4>
+        <div class="mb-3">
+            <a href="{% url 'add_produtos' %}" class="btn btn-outline-success">Adicionar</a>
+        </div>
+        <div class="row">
+            {% for produto in produtos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="/static/img/arroz.webp" alt="Arroz">
+                        <div class="card-body text-center">
+                            <p class="card-text">{{ produto.descricao }}</p>
+                            <p class="card-text font-weight-bold">{{ produto.valor }}</p>
+                            {% if user.is_superuser %}
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'update_produtos' produto.id %}" class="btn btn-warning">Editar</a>
+                                    <a href="{% url 'del_produtos' produto.id %}" class="btn btn-danger">Excluir</a>
+                                </div>
+                            {% else %}
+                                <form action="{% url 'add_to_carrinho' produto.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock content %}

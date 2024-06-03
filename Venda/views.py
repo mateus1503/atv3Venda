@@ -6,9 +6,10 @@ from django.http import Http404
 from django.contrib.auth.models import User
 
 
-@login_required
 def index(request):
-    return render(request, 'venda/index.html')
+    produto = Produto.objects.order_by('id')
+    context = {'produtos': produto}
+    return render(request, 'venda/index.html', context)
 
 
 @login_required
@@ -39,20 +40,13 @@ def list_usuarios(request):
     return render(request, 'venda/list_clientes.html', context)
 
 
-@login_required
-def list_produtos(request):
-    produtos = Produto.objects.order_by('id')
-    context = {'produtos': produtos}
-    return render(request, 'venda/list_produtos.html', context)
-
-
 @login_required(login_url=User.is_superuser)
 def add_produtos(request):
     if request.method == 'POST':
         form = ProdutoForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_produtos')
+            return redirect('index')
     else:
         form = ProdutoForm()
 
@@ -70,7 +64,7 @@ def update_produtos(request, produto_id):
         form = ProdutoForm(instance=produto, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_produtos')
+            return redirect('index')
 
     context = {'produto': produto, 'form': form}
     return render(request, 'venda/new_update_produtos.html', context)
@@ -80,7 +74,7 @@ def update_produtos(request, produto_id):
 def del_produtos(request, produto_id):
     produto = Produto.objects.get(id=produto_id)
     produto.delete()
-    return redirect('list_produtos')
+    return redirect('index')
 
 
 @login_required
@@ -97,7 +91,7 @@ def add_to_carrinho(request, produto_id):
     else:
         carrinho[produto_id] = {'quantidade': 1, 'descricao': produto.descricao, 'valor': float(produto.valor)}
     request.session['carrinho'] = carrinho
-    return redirect('list_produtos')
+    return redirect('index')
 
 
 @login_required

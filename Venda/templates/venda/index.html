@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-{% block link %}
-    {% load static %}
-{% endblock link %}
 
 {% block content %}
     <main class="container">
@@ -13,7 +10,7 @@
             {% for produto in produtos %}
                 <div class="col-md-4">
                     <div class="card mb-4">
-                        <img src="{{ produto.image.url }}" class="card-img-top" alt="{{ produto.descricao }}">
+                        <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
                         <div class="card-body text-center">
                             <p class="card-text">{{ produto.descricao }}</p>
                             <p class="card-text font-weight-bold">{{ produto.valor }}</p>
