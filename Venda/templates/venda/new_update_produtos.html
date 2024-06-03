@@ -7,7 +7,7 @@
 {% block content %}
     <h4>Produto</h4>
         <form action="{% if produto.id %}{% url 'update_produtos' produto.id %}
-        {% else %}{% url 'add_produtos' %}{% endif %}" method="post">
+        {% else %}{% url 'add_produtos' %}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">

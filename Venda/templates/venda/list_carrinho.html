@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
-{% block link %}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'venda/css/list.css' %}">
-{% endblock link %}
 
 {% block content %}
     <main>
-        <h4>Lista de Vendas</h4>
+        <h4>Pedido</h4>
     
-        <table class="table" border="1">
+        <table class="table table-striped border-dark" border="1">
             <thead>
             <tr>
                 <th>Produto</th>

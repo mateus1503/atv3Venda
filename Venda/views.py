@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-    produto = Produto.objects.order_by('id')
+    produto = Produto.objects.all()
     context = {'produtos': produto}
     return render(request, 'venda/index.html', context)
 
@@ -26,7 +26,7 @@ def list_venda(request, usuario_id):
 @login_required
 def detail_venda(request, venda_id):
     venda = Venda.objects.get(id=venda_id)
-    itens_venda = venda.itens_venda.order_by('quantidade')
+    itens_venda = venda.itens_venda.order_by('id')
     context = {'venda': venda, 'itens_venda': itens_venda}
     return render(request, 'venda/detail_venda.html', context)
 
@@ -43,7 +43,7 @@ def list_usuarios(request):
 @login_required(login_url=User.is_superuser)
 def add_produtos(request):
     if request.method == 'POST':
-        form = ProdutoForm(data=request.POST)
+        form = ProdutoForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('index')
@@ -61,7 +61,7 @@ def update_produtos(request, produto_id):
     if request.method != 'POST':
         form = ProdutoForm(instance=produto)
     else:
-        form = ProdutoForm(instance=produto, data=request.POST)
+        form = ProdutoForm(instance=produto, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect('index')

@@ -2,28 +2,32 @@
 
 {% block content %}
     <main class="container">
-        <h4>Lista de Produtos</h4>
-        <div class="mb-3">
-            <a href="{% url 'add_produtos' %}" class="btn btn-outline-success">Adicionar</a>
-        </div>
-        <div class="row">
+        {% if user.is_superuser %}
+            <div class="mb-3">
+                <a href="{% url 'add_produtos' %}" class="btn btn-outline-success">Adicionar</a>
+            </div>
+        {% endif %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for produto in produtos %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+                <div class="col">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-transparent">
+                            <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+                        </div>
                         <div class="card-body text-center">
-                            <p class="card-text">{{ produto.descricao }}</p>
+                            <h6 class="card-title">{{ produto.descricao }}</h6>
                             <p class="card-text font-weight-bold">{{ produto.valor }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-success">
                             {% if user.is_superuser %}
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-md-between">
                                     <a href="{% url 'update_produtos' produto.id %}" class="btn btn-warning">Editar</a>
                                     <a href="{% url 'del_produtos' produto.id %}" class="btn btn-danger">Excluir</a>
                                 </div>
                             {% else %}
-                                <form action="{% url 'add_to_carrinho' produto.id %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
-                                </form>
+                                <div class="d-flex justify-content-md-between">
+                                    <a href="{% url 'add_to_carrinho' produto.id %}" class="btn btn-primary">Adicionar ao carrinho</a>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
