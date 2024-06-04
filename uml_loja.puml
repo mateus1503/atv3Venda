@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class Produto {
+    + descricao: CharField
+    + valor: DecimalField
+    + imagem: ImageField
+}
+
+class Venda {
+    + data: DateTimeField
+}
+
+class ItemVenda {
+    + quantidade: PositiveIntegerField
+}
+
+class Usuario {
+    + first_name: CharField
+    + last_name: CharField
+    + login: CharField
+    + password: CharField
+}
+
+Venda "1" *-down-> "*" ItemVenda
+ItemVenda "*" o-right-> "1" Produto
+Venda "*" -right-> "1" Usuario
+
+@enduml
